@@ -1,4 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common/exceptions';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserInput } from './dto/create-user.input';

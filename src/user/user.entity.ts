@@ -1,5 +1,6 @@
 import { BeforeInsert, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Pedido } from 'src/pedido/pedido.entity';
+import { CreateUserInput } from './dto/create-user.input';
 
 @Entity()
 export class User{
@@ -46,6 +47,16 @@ export class User{
     @BeforeInsert()
     public async hashPassword() {
       this.password = await this.password.toUpperCase();
+    }
+
+    public toDomain(): CreateUserInput {
+        let createUserInput: CreateUserInput = {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            active: this.active
+        }
+        return createUserInput;
     }
 
 

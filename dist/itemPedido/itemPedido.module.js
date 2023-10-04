@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ItemPedidoModule = void 0;
 const common_1 = require("@nestjs/common");
-const database_module_1 = require("../database.module");
+const database_module_1 = require("../database/database.module");
 const itemPedido_provider_1 = require("./itemPedido.provider");
 const itemPedido_service_1 = require("./itemPedido.service");
 const produto_module_1 = require("../produto/produto.module");

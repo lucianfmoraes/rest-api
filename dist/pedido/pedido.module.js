@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PedidoModule = void 0;
 const common_1 = require("@nestjs/common");
 const pedido_service_1 = require("./pedido.service");
-const database_module_1 = require("../database.module");
+const database_module_1 = require("../database/database.module");
 const pedido_provider_1 = require("./pedido.provider");
 const user_module_1 = require("../user/user.module");
 const pedido_controller_1 = require("./pedido.controller");

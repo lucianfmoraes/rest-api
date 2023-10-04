@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
-const database_module_1 = require("../database.module");
+const database_module_1 = require("../database/database.module");
 const user_provider_1 = require("./user.provider");
 const user_service_1 = require("./user.service");
 const user_controller_1 = require("./user.controller");

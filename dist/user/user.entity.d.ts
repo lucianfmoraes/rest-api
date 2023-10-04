@@ -1,4 +1,5 @@
 import { Pedido } from 'src/pedido/pedido.entity';
+import { CreateUserInput } from './dto/create-user.input';
 export declare class User {
     id: number;
     name: string;
@@ -7,4 +8,5 @@ export declare class User {
     active: number;
     pedidos?: Pedido[];
     hashPassword(): Promise<void>;
+    toDomain(): CreateUserInput;
 }

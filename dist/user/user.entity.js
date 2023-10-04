@@ -16,6 +16,15 @@ let User = class User {
     async hashPassword() {
         this.password = await this.password.toUpperCase();
     }
+    toDomain() {
+        let createUserInput = {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            active: this.active
+        };
+        return createUserInput;
+    }
 };
 exports.User = User;
 __decorate([
