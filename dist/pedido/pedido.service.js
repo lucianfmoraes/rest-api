@@ -37,8 +37,8 @@ let PedidoService = class PedidoService {
         return createPedidoInput;
     }
     handlePedido(pedidoFullInput) {
-        let pedido;
-        pedido.dt_Insert = pedidoFullInput.dt_insert;
+        let pedido = { dt_insert: pedidoFullInput.dt_insert, userId: pedidoFullInput.user_id };
+        pedido.dt_insert = pedidoFullInput.dt_insert;
         pedido.userId = pedidoFullInput.user_id;
         return pedido;
     }

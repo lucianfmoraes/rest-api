@@ -234,7 +234,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user",
+							"raw": "http://localhost:3000/pedido/full",
 							"protocol": "http",
 							"host": [
 								"localhost"

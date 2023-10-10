@@ -14,7 +14,7 @@ export class Pedido{
         nullable: false,
 
     })
-    dt_Insert: Date;
+    dt_insert: Date;
 
     @Column({
         type: "float",

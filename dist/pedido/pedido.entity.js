@@ -27,7 +27,7 @@ __decorate([
         nullable: false,
     }),
     __metadata("design:type", Date)
-], Pedido.prototype, "dt_Insert", void 0);
+], Pedido.prototype, "dt_insert", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: "float",
