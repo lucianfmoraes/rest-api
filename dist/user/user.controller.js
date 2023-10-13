@@ -29,6 +29,10 @@ let UserController = class UserController {
         let id = parseInt(paramns.id);
         return this.userService.updateUser(id, updateUserInput);
     }
+    deleteUser(paramns, deleteUserInput) {
+        let id = parseInt(paramns.id);
+        return this.userService.deleteUser(id, deleteUserInput);
+    }
 };
 exports.UserController = UserController;
 __decorate([
@@ -52,6 +56,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
+__decorate([
+    (0, common_1.Put)('/delete/:id'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "deleteUser", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('/user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

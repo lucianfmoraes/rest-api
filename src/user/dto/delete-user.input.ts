@@ -1,4 +1,4 @@
 
 export interface DeleteUserInput  {
-    active: Number;
+    active: number;
 }
