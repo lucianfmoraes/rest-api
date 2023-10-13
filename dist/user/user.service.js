@@ -27,7 +27,8 @@ let UserService = class UserService {
         return this.userRepository.save(newUser);
     }
     async updateUser(id, updateUserInput) {
-        await this.userRepository.update(id, updateUserInput);
+        const updateUser = this.userRepository.create(updateUserInput);
+        await this.userRepository.update(id, updateUser);
         return this.userRepository.findOneByOrFail({ id });
     }
     async deleteUser(id, deleteUserInput) {
