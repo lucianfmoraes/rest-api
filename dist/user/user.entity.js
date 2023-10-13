@@ -12,9 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const pedido_entity_1 = require("../pedido/pedido.entity");
+const bcryptjs_1 = require("bcryptjs");
 let User = class User {
     async hashPassword() {
-        this.password = await this.password.toUpperCase();
+        this.password = await (0, bcryptjs_1.hash)(this.password, 10);
     }
     toDomain() {
         let createUserInput = {
@@ -72,6 +73,7 @@ __decorate([
 ], User.prototype, "pedidos", void 0);
 __decorate([
     (0, typeorm_1.BeforeInsert)(),
+    (0, typeorm_1.BeforeUpdate)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
