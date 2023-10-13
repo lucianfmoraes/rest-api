@@ -1,6 +1,7 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Pedido } from 'src/pedido/pedido.entity';
 import { CreateUserInput } from './dto/create-user.input';
+import { hash } from "bcryptjs";
 
 @Entity()
 export class User{
