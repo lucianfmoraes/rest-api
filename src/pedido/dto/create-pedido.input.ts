@@ -1,4 +1,4 @@
 export interface CreatePedidoInput{
-    dt_Insert: Date;
+    dt_insert: Date;
     userId: number;
 }
