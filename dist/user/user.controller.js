@@ -25,6 +25,10 @@ let UserController = class UserController {
     saveUser(createUserInput) {
         return this.userService.createUser(createUserInput);
     }
+    updateUser(paramns, updateUserInput) {
+        let id = parseInt(paramns.id);
+        return this.userService.updateUser(id, updateUserInput);
+    }
 };
 exports.UserController = UserController;
 __decorate([
@@ -40,6 +44,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "saveUser", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUser", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('/user'),
     __metadata("design:paramtypes", [user_service_1.UserService])
