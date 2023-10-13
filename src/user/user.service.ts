@@ -33,7 +33,10 @@ export class UserService{
     }
 
     async deleteUser(id: number, deleteUserInput: DeleteUserInput):Promise<User>{
-        // await this.userRepository.update(id,deleteUserInput);
+
+        // const deleteUser = this.userRepository.create(deleteUserInput);
+
+        await this.userRepository.update(id,deleteUserInput);
 
         return this.userRepository.findOneByOrFail({id});
     }

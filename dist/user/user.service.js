@@ -32,6 +32,7 @@ let UserService = class UserService {
         return this.userRepository.findOneByOrFail({ id });
     }
     async deleteUser(id, deleteUserInput) {
+        await this.userRepository.update(id, deleteUserInput);
         return this.userRepository.findOneByOrFail({ id });
     }
 };
