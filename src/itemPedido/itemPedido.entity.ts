@@ -11,19 +11,19 @@ export class ItemPedido{
     @Column()
     quantity: number;
     
-    @Column({
-        type: "float",
-        unique: false,
-        nullable: true
-    })
-    totalValue: number;
+    // @Column({
+    //     type: "float",
+    //     unique: false,
+    //     nullable: true
+    // })
+    // totalValue: number;
 
-    @Column({
-        type: "float",
-        unique: false,
-        nullable: true
-    })
-    uniqueValue: number;
+    // @Column({
+    //     type: "float",
+    //     unique: false,
+    //     nullable: true
+    // })
+    // uniqueValue: number;
 
     @Column()
     pedidoId: number;
