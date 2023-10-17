@@ -31,8 +31,10 @@ let UserService = class UserService {
         await this.userRepository.update(id, updateUser);
         return this.userRepository.findOneByOrFail({ id });
     }
-    async deleteUser(id, deleteUserInput) {
-        await this.userRepository.update(id, deleteUserInput);
+    async deleteUser(id) {
+        let user = await this.userRepository.findOne({ where: { id: id } });
+        user.active = 0;
+        await this.userRepository.update(id, user);
         return this.userRepository.findOneByOrFail({ id });
     }
 };

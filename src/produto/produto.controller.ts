@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Patch } from "@nestjs/common";
 import { ProdutoService } from "./produto.service";
 import { Produto } from "./produto.entity";
+import { UpdateProdutoInput } from "./dto/update-produto.input";
 
 
 
@@ -16,6 +17,11 @@ export class ProdutoController {
     @Post()
     saveProduto( @Body() produto: Produto): Promise<Produto> {
         return this.produtoService.createProduto(produto)
+    }
+
+    @Patch()
+    updateProduto( @Body() updateProdutoInput: UpdateProdutoInput) {
+        return this.updateProduto(updateProdutoInput)
     }
 
 }

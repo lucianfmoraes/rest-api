@@ -26,6 +26,9 @@ let ProdutoController = class ProdutoController {
     saveProduto(produto) {
         return this.produtoService.createProduto(produto);
     }
+    updateProduto(updateProdutoInput) {
+        return this.updateProduto(updateProdutoInput);
+    }
 };
 exports.ProdutoController = ProdutoController;
 __decorate([
@@ -41,6 +44,13 @@ __decorate([
     __metadata("design:paramtypes", [produto_entity_1.Produto]),
     __metadata("design:returntype", Promise)
 ], ProdutoController.prototype, "saveProduto", null);
+__decorate([
+    (0, common_1.Patch)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ProdutoController.prototype, "updateProduto", null);
 exports.ProdutoController = ProdutoController = __decorate([
     (0, common_1.Controller)("/produto"),
     __metadata("design:paramtypes", [produto_service_1.ProdutoService])
