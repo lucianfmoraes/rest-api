@@ -2,8 +2,6 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CreatePedidoInput } from './dto/create-pedido.input';
 import { Pedido } from './pedido.entity';
-import { CreatePedidoFullInput } from './dto/create-pedido.full.input';
-
 
 @Controller("/pedido")
 export class PedidoController {
@@ -18,9 +16,5 @@ export class PedidoController {
   createPedido(@Body() createPedidoInput: CreatePedidoInput ) {
     return this.pedidoService.createPedido(createPedidoInput)
   }
-  
-  @Post("/full")
-  createPedidoFull(@Body() createPedidoInput: CreatePedidoFullInput ) {
-    return this.pedidoService.createPedidoFull(createPedidoInput)
-  }
+
 }

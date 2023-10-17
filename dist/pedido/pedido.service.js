@@ -23,11 +23,7 @@ let PedidoService = class PedidoService {
     async findAll() {
         return this.pedidoRepository.find();
     }
-    createPedido(createPedidoInput) {
-        const newPedido = this.pedidoRepository.create(createPedidoInput);
-        return this.pedidoRepository.save(newPedido);
-    }
-    async createPedidoFull(createPedidoInput) {
+    async createPedido(createPedidoInput) {
         let pedido = this.handlePedido(createPedidoInput);
         let pedidoToBeSaved = this.pedidoRepository.create(pedido);
         let pedidoSaved = await this.pedidoRepository.save(pedidoToBeSaved);
@@ -36,10 +32,13 @@ let PedidoService = class PedidoService {
         this.itenPedidoRepository.save(newPedido);
         return createPedidoInput;
     }
-    handlePedido(pedidoFullInput) {
-        let pedido = { dt_insert: pedidoFullInput.dt_insert, userId: pedidoFullInput.user_id };
-        pedido.dt_insert = pedidoFullInput.dt_insert;
-        pedido.userId = pedidoFullInput.user_id;
+    handlePedido(pedidoInput) {
+        let pedido = {
+            dt_insert: pedidoInput.dt_insert,
+            user_id: pedidoInput.user_id,
+            total_value: pedidoInput.total_value,
+            itemPedido: pedidoInput.itemPedido
+        };
         return pedido;
     }
     handleItensPedido(itensPedido, pedido) {
