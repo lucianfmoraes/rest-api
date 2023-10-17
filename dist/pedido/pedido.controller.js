@@ -25,9 +25,6 @@ let PedidoController = class PedidoController {
     createPedido(createPedidoInput) {
         return this.pedidoService.createPedido(createPedidoInput);
     }
-    createPedidoFull(createPedidoInput) {
-        return this.pedidoService.createPedidoFull(createPedidoInput);
-    }
 };
 exports.PedidoController = PedidoController;
 __decorate([
@@ -43,13 +40,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], PedidoController.prototype, "createPedido", null);
-__decorate([
-    (0, common_1.Post)("/full"),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], PedidoController.prototype, "createPedidoFull", null);
 exports.PedidoController = PedidoController = __decorate([
     (0, common_1.Controller)("/pedido"),
     __metadata("design:paramtypes", [pedido_service_1.PedidoService])

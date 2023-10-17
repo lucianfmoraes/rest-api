@@ -23,7 +23,7 @@ export class Pedido{
     })    total_Value: number;
 
     @Column()
-    userId: number;
+    user_id: number;
     
     @ManyToOne(() => User, user => user.pedidos)
     user: User

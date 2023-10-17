@@ -2,11 +2,8 @@ import { Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { Pedido } from "./pedido.entity";
 import { CreatePedidoInput } from "./dto/create-pedido.input";
-import { CreatePedidoFullInput } from './dto/create-pedido.full.input';
 import { ItemPedido } from "../itemPedido/itemPedido.entity";
 import { CreateItemPedidoInput } from "../itemPedido/dto/create-itemPedido.input";
-import { throws } from "assert";
-
 
 @Injectable()
 export class PedidoService{
@@ -23,13 +20,7 @@ export class PedidoService{
         return this.pedidoRepository.find();
     }
 
-    createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido>{
-        const  newPedido = this.pedidoRepository.create(createPedidoInput);
-
-        return this.pedidoRepository.save(newPedido);
-    }
-
-    async createPedidoFull(createPedidoInput: CreatePedidoFullInput): Promise<CreatePedidoFullInput>{
+    async createPedido(createPedidoInput: CreatePedidoInput): Promise<CreatePedidoInput>{
 
         let pedido = this.handlePedido(createPedidoInput);
         let pedidoToBeSaved = this.pedidoRepository.create(pedido);
@@ -43,11 +34,14 @@ export class PedidoService{
         return createPedidoInput;
     }
 
-    private handlePedido(pedidoFullInput: CreatePedidoFullInput): CreatePedidoInput {
-        let pedido = {dt_insert: pedidoFullInput.dt_insert, userId: pedidoFullInput.user_id};
-
-        pedido.dt_insert = pedidoFullInput.dt_insert;
-        pedido.userId = pedidoFullInput.user_id
+    private handlePedido(pedidoInput: CreatePedidoInput): CreatePedidoInput {
+        let pedido = {
+            dt_insert: pedidoInput.dt_insert, 
+            user_id: pedidoInput.user_id,
+            total_value: pedidoInput.total_value,
+            itemPedido: pedidoInput.itemPedido
+            
+        };
         return pedido;
     }
 

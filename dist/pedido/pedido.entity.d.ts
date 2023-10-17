@@ -4,7 +4,7 @@ export declare class Pedido {
     id: number;
     dt_insert: Date;
     total_Value: number;
-    userId: number;
+    user_id: number;
     user: User;
     ItensPedido?: ItemPedido[];
 }
