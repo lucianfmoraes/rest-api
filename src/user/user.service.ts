@@ -1,10 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { BadRequestException } from '@nestjs/common/exceptions';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { DeleteUserInput } from './dto/delete-user.input';
+
 @Injectable()
 export class UserService{
     constructor(
@@ -19,30 +18,21 @@ export class UserService{
 
     createUser(createUserInput: CreateUserInput): Promise<User>{
         const newUser = this.userRepository.create(createUserInput);
-
         return this.userRepository.save(newUser);
     }
 
     async updateUser(id: number, updateUserInput: UpdateUserInput):Promise<User>{
-
         const updateUser = this.userRepository.create(updateUserInput);
-
         await  this.userRepository.update(id,updateUser);
-        
         return this.userRepository.findOneByOrFail({id});
     }
 
-    async deleteUser(id: number, deleteUserInput: DeleteUserInput):Promise<User>{
-
-        // const deleteUser = this.userRepository.create(deleteUserInput);
-
-        await this.userRepository.update(id,deleteUserInput);
-
+    async deleteUser(id: number, ):Promise<User>{
+        let user = await this.userRepository.findOne({ where:{ id: id } });
+        user.active = 0;
+        await this.userRepository.update(id, user);
         return this.userRepository.findOneByOrFail({id});
     }
-
-    
-
 
 }
 
