@@ -7,6 +7,5 @@ export declare class User {
     password: string;
     active: number;
     pedidos?: Pedido[];
-    hashPassword(): Promise<void>;
     toDomain(): CreateUserInput;
 }

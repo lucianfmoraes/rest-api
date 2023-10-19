@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
+const bcryptjs_1 = require("bcryptjs");
 let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -22,12 +23,16 @@ let UserService = class UserService {
     async findAll() {
         return this.userRepository.find();
     }
-    createUser(createUserInput) {
+    async createUser(createUserInput) {
+        let pass = this.hashPassword(createUserInput.password);
         const newUser = this.userRepository.create(createUserInput);
+        newUser.password = await pass;
         return this.userRepository.save(newUser);
     }
     async updateUser(id, updateUserInput) {
+        let pass = this.hashPassword(updateUserInput.password);
         const updateUser = this.userRepository.create(updateUserInput);
+        updateUser.password = await pass;
         await this.userRepository.update(id, updateUser);
         return this.userRepository.findOneByOrFail({ id });
     }
@@ -36,6 +41,10 @@ let UserService = class UserService {
         user.active = 0;
         await this.userRepository.update(id, user);
         return this.userRepository.findOneByOrFail({ id });
+    }
+    async hashPassword(password) {
+        password = await (0, bcryptjs_1.hash)(password, 10);
+        return password;
     }
 };
 exports.UserService = UserService;
