@@ -1,8 +1,6 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Pedido } from 'src/pedido/pedido.entity';
 import { CreateUserInput } from './dto/create-user.input';
-import { hash } from "bcryptjs";
-
 @Entity()
 export class User{
 
@@ -42,14 +40,7 @@ export class User{
     active: number;
 
     @OneToMany(() => Pedido, pedido => pedido.user)
-
     pedidos?: Pedido[];
-
-    @BeforeInsert()
-    @BeforeUpdate()
-    public async hashPassword() {
-      this.password = await hash(this.password, 10);
-    }
 
 
     public toDomain(): CreateUserInput {

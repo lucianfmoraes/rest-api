@@ -9,4 +9,5 @@ export declare class UserService {
     createUser(createUserInput: CreateUserInput): Promise<User>;
     updateUser(id: number, updateUserInput: UpdateUserInput): Promise<User>;
     deleteUser(id: number): Promise<User>;
+    hashPassword(password: string): Promise<string>;
 }
