@@ -1,11 +1,8 @@
-
 import { ItemPedido } from "src/itemPedido/itemPedido.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn, } from "typeorm";
 
-
-
 @Entity()
-export class Produto{
+export class Produto {
 
     @PrimaryGeneratedColumn()
     id: number;

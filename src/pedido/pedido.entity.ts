@@ -1,9 +1,9 @@
 import { ItemPedido } from "src/itemPedido/itemPedido.entity";
 import { User } from "src/user/user.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Pedido{
+export class Pedido {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -20,11 +20,11 @@ export class Pedido{
         type: "float",
         unique: false,
         nullable: true
-    })    total_Value: number;
+    }) total_Value: number;
 
     @Column()
     user_id: number;
-    
+
     @ManyToOne(() => User, user => user.pedidos)
     user: User
 

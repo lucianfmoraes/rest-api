@@ -2,11 +2,10 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CreatePedidoInput } from './dto/create-pedido.input';
 import { Pedido } from './pedido.entity';
-import { FindPedidoResponse } from './dto/find-pedido.response';
 
 @Controller("/pedido")
 export class PedidoController {
-  constructor(private readonly pedidoService: PedidoService) {}
+  constructor(private readonly pedidoService: PedidoService) { }
 
   @Get()
   getAllPedido(): Promise<Pedido[]> {
@@ -14,8 +13,7 @@ export class PedidoController {
   }
 
   @Post()
-  createPedido(@Body() createPedidoInput: CreatePedidoInput ) {
+  createPedido(@Body() createPedidoInput: CreatePedidoInput) {
     return this.pedidoService.createPedido(createPedidoInput)
   }
-
 }

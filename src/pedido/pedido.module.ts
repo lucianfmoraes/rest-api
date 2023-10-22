@@ -5,11 +5,10 @@ import { pedidoProvider } from "./pedido.provider";
 import { UserModule } from "src/user/user.module";
 import { PedidoController } from "./pedido.controller";
 
-
 @Module({
-    imports: [DatabaseModule,UserModule],
+    imports: [DatabaseModule, UserModule],
     controllers: [PedidoController],
     providers: [...pedidoProvider, PedidoService],
 
 })
-export class PedidoModule {}
+export class PedidoModule { }

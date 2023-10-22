@@ -6,10 +6,10 @@ import { ItemPedidoModule } from './itemPedido/itemPedido.module';
 
 @Module({
   imports: [
-    UserModule, 
-    ProdutoModule, 
-    PedidoModule, 
+    UserModule,
+    ProdutoModule,
+    PedidoModule,
     ItemPedidoModule
   ]
 })
-export class AppModule {}
+export class AppModule { }
