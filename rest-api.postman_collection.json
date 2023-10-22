@@ -114,7 +114,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dt_insert\":  \"2023-10-08\",\r\n    \"total_value\": 500,\r\n    \"user_id\": 1,\r\n    \"itemPedido\": [\r\n        {\r\n            \"quantity\": 3,\r\n            \"totalValue\": 300,\r\n            \"uniqueValue\": 100,\r\n            \"pedidoId\": 1,\r\n            \"produtoId\": 1\r\n        }\r\n    ]\r\n }\r\n",
+							"raw": "{\r\n    \"dt_insert\":  \"2023-10-22\",\r\n    \"user_id\": 3,\r\n    \"itemPedido\": [\r\n        {\r\n            \"quantity\": 2,\r\n            \"produtoId\": 2\r\n        },\r\n        {\r\n            \"quantity\": 1,\r\n            \"produtoId\": 4\r\n        }\r\n    ]\r\n }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -147,7 +147,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Teclado Logitech\",\r\n    \"description\": \"Teclado sem fio logitech\",\r\n    \"value\": 129.00\r\n}",
+							"raw": "{\r\n    \"name\": \"Web Câmera 4k\",\r\n    \"description\": \"Webcam Canon REBEL T6i\",\r\n    \"value\": 399.00\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -219,7 +219,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"quantity\": 2,\r\n    \"totalValue\": 200,\r\n    \"uniqueValue\": 100,\r\n    \"pedidoId\": 1,\r\n    \"produtoId\": 1\r\n}\r\n",
+							"raw": "{\r\n    \"quantity\": 9,\r\n    \"pedidoId\": 1,\r\n    \"produtoId\": 1\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -227,7 +227,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/pedido/full",
+							"raw": "http://localhost:3000/pedido/item",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -235,7 +235,7 @@
 							"port": "3000",
 							"path": [
 								"pedido",
-								"full"
+								"item"
 							]
 						}
 					},
