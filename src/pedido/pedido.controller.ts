@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CreatePedidoInput } from './dto/create-pedido.input';
 import { Pedido } from './pedido.entity';
+import { FindPedidoResponse } from './dto/find-pedido.response';
 
 @Controller("/pedido")
 export class PedidoController {
