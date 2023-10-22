@@ -6,50 +6,42 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { hash } from "bcryptjs";
 
 @Injectable()
-export class UserService{
+export class UserService {
     constructor(
         @Inject('USER_REPOSITORY')
         private userRepository: Repository<User>
 
-    ){}
+    ) { }
 
     async findAll(): Promise<User[]> {
         return this.userRepository.find();
     }
 
-  async  createUser(createUserInput: CreateUserInput): Promise<User>{
-
+    async createUser(createUserInput: CreateUserInput): Promise<User> {
         let pass = this.hashPassword(createUserInput.password);
         const newUser = this.userRepository.create(createUserInput);
-
         newUser.password = await pass;
         return this.userRepository.save(newUser);
     }
 
-    async updateUser(id: number, updateUserInput: UpdateUserInput):Promise<User>{
+    async updateUser(id: number, updateUserInput: UpdateUserInput): Promise<User> {
         let pass = this.hashPassword(updateUserInput.password);
-
         const updateUser = this.userRepository.create(updateUserInput);
-        
         updateUser.password = await pass;
-
-        await  this.userRepository.update(id,updateUser);
-        
-        return this.userRepository.findOneByOrFail({id});
+        await this.userRepository.update(id, updateUser);
+        return this.userRepository.findOneByOrFail({ id });
     }
 
-    async deleteUser(id: number, ):Promise<User>{
-        let user = await this.userRepository.findOne({ where:{ id: id } });
+    async deleteUser(id: number,): Promise<User> {
+        let user = await this.userRepository.findOne({ where: { id: id } });
         user.active = 0;
         await this.userRepository.update(id, user);
-        return this.userRepository.findOneByOrFail({id});
+        return this.userRepository.findOneByOrFail({ id });
     }
 
-    async hashPassword(password: string):Promise<string> {
+    async hashPassword(password: string): Promise<string> {
         password = await hash(password, 10);
-
         return password;
     }
-
 }
 

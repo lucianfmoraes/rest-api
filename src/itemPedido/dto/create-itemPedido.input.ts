@@ -1,5 +1,5 @@
-export interface CreateItemPedidoInput{
-    quantity:number;
+export interface CreateItemPedidoInput {
+    quantity: number;
     pedidoId: number;
     produtoId: number;
 }

@@ -3,11 +3,9 @@ import { ProdutoService } from "./produto.service";
 import { Produto } from "./produto.entity";
 import { UpdateProdutoInput } from "./dto/update-produto.input";
 
-
-
 @Controller("/produto")
 export class ProdutoController {
-    constructor(private readonly produtoService: ProdutoService) {}
+    constructor(private readonly produtoService: ProdutoService) { }
 
     @Get()
     getAllProduto(): Promise<Produto[]> {
@@ -15,13 +13,12 @@ export class ProdutoController {
     }
 
     @Post()
-    saveProduto( @Body() produto: Produto): Promise<Produto> {
+    saveProduto(@Body() produto: Produto): Promise<Produto> {
         return this.produtoService.createProduto(produto)
     }
 
     @Patch()
-    updateProduto( @Body() updateProdutoInput: UpdateProdutoInput) {
+    updateProduto(@Body() updateProdutoInput: UpdateProdutoInput) {
         return this.updateProduto(updateProdutoInput)
     }
-
 }

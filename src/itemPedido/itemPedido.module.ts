@@ -7,8 +7,8 @@ import { PedidoModule } from "src/pedido/pedido.module";
 import { ItemPedidoController } from "./itemPedido.controller";
 
 @Module({
-    imports: [DatabaseModule,ProdutoModule,PedidoModule],
-    controllers: [ItemPedidoController],
-    providers: [...itemPedidoProvider, ItemPedidoService],
-  })
-export class ItemPedidoModule{}
+  imports: [DatabaseModule, ProdutoModule, PedidoModule],
+  controllers: [ItemPedidoController],
+  providers: [...itemPedidoProvider, ItemPedidoService],
+})
+export class ItemPedidoModule { }

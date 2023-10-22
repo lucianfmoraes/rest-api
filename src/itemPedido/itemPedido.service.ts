@@ -5,22 +5,20 @@ import { CreateItemPedidoInput } from './dto/create-itemPedido.input';
 
 
 @Injectable()
-export class ItemPedidoService{
+export class ItemPedidoService {
     constructor(
         @Inject('ITEM_PEDIDO_REPOSITORY')
         private itemPedidoRepository: Repository<ItemPedido>
 
-    ){}
+    ) { }
 
     async findAll(): Promise<ItemPedido[]> {
         return this.itemPedidoRepository.find();
     }
 
-    createItemPedido(createItemPedidoInput: CreateItemPedidoInput): Promise<ItemPedido>{
+    createItemPedido(createItemPedidoInput: CreateItemPedidoInput): Promise<ItemPedido> {
         const newItemPedido = this.itemPedidoRepository.create(createItemPedidoInput);
-
         return this.itemPedidoRepository.save(newItemPedido);
     }
-
 }
 

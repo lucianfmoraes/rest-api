@@ -1,5 +1,4 @@
-
-export interface CreateProdutoInput{
+export interface CreateProdutoInput {
     name: string;
     description?: string;
     value: number;
