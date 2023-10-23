@@ -20,48 +20,42 @@ export class PedidoService {
         private produtoRepository: Repository<Produto>,
     ) { }
 
-    async findAll(): Promise<Pedido[]> {
-        let pedidos = await this.pedidoRepository.find();
-        let qtd: number = 0;
-        let pedidosFull = await Promise.all(pedidos.map(async (p): Promise<Pedido> => {
-            let totalValue: number = 0;
-            p.ItensPedido = await this.itenPedidoRepository.find({ where: { pedidoId: p.id } })
-            for (const item of p.ItensPedido) { //p.ItensPedido.forEach(async (item) =>  
-                let produto = await this.produtoRepository.findOne({ where: { id: item.produtoId } })
-                totalValue += produto.value * item.quantity;
-            }
-            p.total_Value = totalValue;
-            return p;
-        }))
-        return pedidosFull;
+    async findAll(): Promise<Pedido[]>{
+
+        const teste =  await this.pedidoRepository.find({relations: {ItensPedido: true}});
+
+        return teste;
     }
 
-    async createPedido(createPedidoInput: CreatePedidoInput): Promise<CreatePedidoInput> {
-        let pedido = this.handlePedido(createPedidoInput);
-        let pedidoToBeSaved = this.pedidoRepository.create(pedido);
-        let pedidoSaved = await this.pedidoRepository.save(pedidoToBeSaved);
-        let itensPedidoList = this.handleItensPedido(createPedidoInput.itemPedido, pedidoSaved)
-        let newPedido = this.itenPedidoRepository.create(itensPedidoList);
-        this.itenPedidoRepository.save(newPedido);
-        return createPedidoInput;
-    }
+    async createPedido(createPedidoInput: CreatePedidoInput):Promise<Pedido[]>{
 
-    private handlePedido(pedidoInput: CreatePedidoInput): CreatePedidoInput {
-        let pedido = {
-            dt_insert: pedidoInput.dt_insert,
-            user_id: pedidoInput.user_id,
-            total_value: pedidoInput.total_value,
-            itemPedido: pedidoInput.itemPedido
+        const newPedido =  await this.pedidoRepository.create(createPedidoInput);
 
-        };
-        return pedido;
-    }
+        let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0].id;
 
-    private handleItensPedido(itensPedido: CreateItemPedidoInput[], pedido: Pedido): CreateItemPedidoInput[] {
-        return itensPedido.map((itemPedido, index) => {
-            itemPedido.pedidoId = pedido.id
-            return itemPedido
-        })
+        for await  (const item of createPedidoInput.itemPedido){
+            item.pedidoId = lastPedidoId;
+            await this.itenPedidoRepository.save(item);
+        }        
+
+        let itens =  await this.itenPedidoRepository.find({ where: {pedidoId :parseInt(lastPedidoId)} });
+        var total = 0;
+        for await  (const item of itens){
+            let produto = await this.produtoRepository.find({ where:{ id: item.produtoId }});
+            total = total + (produto[0].value * item.quantity);
+        }
+        const updatePedido = await this.pedidoRepository.createQueryBuilder()
+            .update(Pedido)
+            .set({
+                total_Value: total
+            })
+            .where("id = :id", {id: lastPedidoId})
+            .execute()
+        const pedidoConcluido = this.pedidoRepository.find({relations: {ItensPedido: true}, where:{id: lastPedidoId}})
+
+
+        return pedidoConcluido;
+
     }
 
 }
