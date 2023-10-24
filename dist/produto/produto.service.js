@@ -31,8 +31,9 @@ let ProdutoService = class ProdutoService {
         return this.produtoRepository.findOneByOrFail({ id });
     }
     async deleteProduto(id) {
-        await this.produtoRepository.delete(id);
-        return this.produtoRepository.find();
+        const deleteProduto = await this.produtoRepository.delete(id);
+        const produto = await this.produtoRepository.find();
+        return produto;
     }
 };
 exports.ProdutoService = ProdutoService;

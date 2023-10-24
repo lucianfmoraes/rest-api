@@ -27,8 +27,10 @@ export class ProdutoService {
     }
 
     async deleteProduto(id: number): Promise<Produto[]> {
-        await this.produtoRepository.delete(id);
-        return this.produtoRepository.find()
+        const deleteProduto = await this.produtoRepository.delete(id);
+        const produto =  await this.produtoRepository.find();
+        return produto;
+ 
     }
 }
 

@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Patch } from "@nestjs/common";
+import { Body, Controller, Get, Post, Patch, Param, Delete } from "@nestjs/common";
 import { ProdutoService } from "./produto.service";
 import { Produto } from "./produto.entity";
 import { UpdateProdutoInput } from "./dto/update-produto.input";
+import { User } from "src/user/user.entity";
 
 @Controller("/produto")
 export class ProdutoController {
@@ -17,8 +18,16 @@ export class ProdutoController {
         return this.produtoService.createProduto(produto)
     }
 
-    @Patch()
-    updateProduto(@Body() updateProdutoInput: UpdateProdutoInput) {
-        return this.updateProduto(updateProdutoInput)
+    @Patch(':id')
+    updateProduto(@Param() paramns: any, @Body() updateProdutoInput: UpdateProdutoInput): Promise<Produto> {
+        let id = parseInt(paramns.id);
+        return this.produtoService.updateProduto(id,updateProdutoInput);
     }
+
+    @Delete('/:id')
+    deleteProduto(@Param('id') id: number): Promise<Produto[]> {
+        return this.produtoService.deleteProduto(id);
+    }
+
+
 }

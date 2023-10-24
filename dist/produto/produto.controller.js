@@ -26,8 +26,12 @@ let ProdutoController = class ProdutoController {
     saveProduto(produto) {
         return this.produtoService.createProduto(produto);
     }
-    updateProduto(updateProdutoInput) {
-        return this.updateProduto(updateProdutoInput);
+    updateProduto(paramns, updateProdutoInput) {
+        let id = parseInt(paramns.id);
+        return this.produtoService.updateProduto(id, updateProdutoInput);
+    }
+    deleteProduto(id) {
+        return this.produtoService.deleteProduto(id);
     }
 };
 exports.ProdutoController = ProdutoController;
@@ -45,12 +49,20 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProdutoController.prototype, "saveProduto", null);
 __decorate([
-    (0, common_1.Patch)(),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
 ], ProdutoController.prototype, "updateProduto", null);
+__decorate([
+    (0, common_1.Delete)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ProdutoController.prototype, "deleteProduto", null);
 exports.ProdutoController = ProdutoController = __decorate([
     (0, common_1.Controller)("/produto"),
     __metadata("design:paramtypes", [produto_service_1.ProdutoService])
