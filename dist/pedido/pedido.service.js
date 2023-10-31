@@ -15,37 +15,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PedidoService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
+const pedido_entity_1 = require("./pedido.entity");
 let PedidoService = class PedidoService {
-    constructor(pedidoRepository, itenPedidoRepository) {
+    constructor(pedidoRepository, itenPedidoRepository, produtoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.itenPedidoRepository = itenPedidoRepository;
+        this.produtoRepository = produtoRepository;
     }
     async findAll() {
-        return this.pedidoRepository.find();
+        const teste = await this.pedidoRepository.find({ relations: { ItensPedido: true } });
+        return teste;
     }
     async createPedido(createPedidoInput) {
-        let pedido = this.handlePedido(createPedidoInput);
-        let pedidoToBeSaved = this.pedidoRepository.create(pedido);
-        let pedidoSaved = await this.pedidoRepository.save(pedidoToBeSaved);
-        let itensPedidoList = this.handleItensPedido(createPedidoInput.itemPedido, pedidoSaved);
-        let newPedido = this.itenPedidoRepository.create(itensPedidoList);
-        this.itenPedidoRepository.save(newPedido);
-        return createPedidoInput;
-    }
-    handlePedido(pedidoInput) {
-        let pedido = {
-            dt_insert: pedidoInput.dt_insert,
-            user_id: pedidoInput.user_id,
-            total_value: pedidoInput.total_value,
-            itemPedido: pedidoInput.itemPedido
-        };
-        return pedido;
-    }
-    handleItensPedido(itensPedido, pedido) {
-        return itensPedido.map((itemPedido, index) => {
-            itemPedido.pedidoId = pedido.id;
-            return itemPedido;
-        });
+        const newPedido = await this.pedidoRepository.create(createPedidoInput);
+        let lastPedidoId = (await this.pedidoRepository.insert(newPedido)).generatedMaps[0].id;
+        for await (const item of createPedidoInput.itemPedido) {
+            item.pedidoId = lastPedidoId;
+            await this.itenPedidoRepository.save(item);
+        }
+        let itens = await this.itenPedidoRepository.find({ where: { pedidoId: parseInt(lastPedidoId) } });
+        var total = 0;
+        for await (const item of itens) {
+            let produto = await this.produtoRepository.find({ where: { id: item.produtoId } });
+            total = total + (produto[0].value * item.quantity);
+        }
+        const updatePedido = await this.pedidoRepository.createQueryBuilder()
+            .update(pedido_entity_1.Pedido)
+            .set({
+            total_Value: total
+        })
+            .where("id = :id", { id: lastPedidoId })
+            .execute();
+        const pedidoConcluido = this.pedidoRepository.find({ relations: { ItensPedido: true }, where: { id: lastPedidoId } });
+        return pedidoConcluido;
     }
 };
 exports.PedidoService = PedidoService;
@@ -53,7 +55,9 @@ exports.PedidoService = PedidoService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('PEDIDO_REPOSITORY')),
     __param(1, (0, common_1.Inject)('ITEM_PEDIDO_REPOSITORY')),
+    __param(2, (0, common_1.Inject)('PRODUTO_REPOSITORY')),
     __metadata("design:paramtypes", [typeorm_1.Repository,
+        typeorm_1.Repository,
         typeorm_1.Repository])
 ], PedidoService);
 //# sourceMappingURL=pedido.service.js.map

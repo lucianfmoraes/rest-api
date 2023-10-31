@@ -6,5 +6,6 @@ export declare class ProdutoController {
     constructor(produtoService: ProdutoService);
     getAllProduto(): Promise<Produto[]>;
     saveProduto(produto: Produto): Promise<Produto>;
-    updateProduto(updateProdutoInput: UpdateProdutoInput): any;
+    updateProduto(paramns: any, updateProdutoInput: UpdateProdutoInput): Promise<Produto>;
+    deleteProduto(id: number): Promise<Produto[]>;
 }

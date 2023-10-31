@@ -5,5 +5,5 @@ export declare class PedidoController {
     private readonly pedidoService;
     constructor(pedidoService: PedidoService);
     getAllPedido(): Promise<Pedido[]>;
-    createPedido(createPedidoInput: CreatePedidoInput): Promise<CreatePedidoInput>;
+    createPedido(createPedidoInput: CreatePedidoInput): Promise<Pedido[]>;
 }
